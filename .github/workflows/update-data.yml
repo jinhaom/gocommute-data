@@ -56,6 +56,8 @@ jobs:
         run: |
           set -euo pipefail
           DATE="$(cat work/DATA_DATE)"
+          # 先打包，再把 zip 的 sha256/大小一起寫進 version.json（讓 app 解壓前就能校驗）
+          ( cd work/assets && zip -q -9 -r "../transit-data-$DATE.zip" . )
           python3 - "$DATE" <<'PY'
           import hashlib, json, os, sys, datetime
           date = sys.argv[1]
@@ -65,26 +67,31 @@ jobs:
           files = []
           for n in names:
               p = os.path.join(assets, n)
+              if not os.path.exists(p):
+                  sys.exit(f"✗ 資產缺少 {n}")
               b = open(p, "rb").read()
               files.append({"name": n, "bytes": len(b), "sha256": hashlib.sha256(b).hexdigest()})
-          tag = f"data-{date}"
           zname = f"transit-data-{date}.zip"
+          zpath = os.path.join(work, zname)
+          zb = open(zpath, "rb").read()
+          tag = f"data-{date}"
           v = {
               "schema": 1,
               "data_date": date,
               "built_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
               "built_by": "gocommute-data pipeline (GitHub Actions)",
-              "zip": {"name": zname, "url": f"https://github.com/jinhaom/gocommute-data/releases/download/{tag}/{zname}"},
+              "zip": {
+                  "name": zname,
+                  "bytes": len(zb),
+                  "sha256": hashlib.sha256(zb).hexdigest(),
+                  "url": f"https://github.com/jinhaom/gocommute-data/releases/download/{tag}/{zname}",
+              },
               "manifest_sha256": next(f["sha256"] for f in files if f["name"] == "manifest.json"),
               "files": files,
           }
           json.dump(v, open("version.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-          print(json.dumps({"data_date": date, "files": len(files)}, ensure_ascii=False))
+          print(f"version.json: zip {len(zb)} B, {len(files)} 個檔案")
           PY
-          # 打包（zip 內保持資產檔名在根層，app 解壓即可）
-          ( cd work/assets && zip -q -9 -r "../transit-data-$DATE.zip" . )
-          sha256sum "work/transit-data-$DATE.zip" | tee work/zip.sha256
-          ls -la work/transit-data-*.zip
 
       - name: 發佈 Release（不可變、可回滾）
         if: steps.check.outputs.changed == 'true'
@@ -93,11 +100,40 @@ jobs:
         run: |
           set -euo pipefail
           DATE="$(cat work/DATA_DATE)"
-          gh release create "data-$DATE" \
-            "work/transit-data-$DATE.zip" version.json \
-            --title "資料 $DATE" \
-            --notes "運輸署資料截止日 $DATE（自動建置：github.com/jinhaom/gocommute/actions）" \
-            || gh release upload "data-$DATE" "work/transit-data-$DATE.zip" version.json --clobber
+          TAG="data-$DATE"
+          ZIP="work/transit-data-$DATE.zip"
+          URL="https://github.com/jinhaom/gocommute-data/releases/download/$TAG/$(basename "$ZIP")"
+
+          # 建 Release：GitHub API 偶發 500（實測遇過），必須重試；
+          # 千萬不要用 `|| gh release upload` 兜底 —— 那會留下一個草稿、而步驟仍報 success，
+          # 手機端永遠拿不到資料（且看起來一切正常）。
+          for i in 1 2 3 4 5; do
+            if gh release view "$TAG" >/dev/null 2>&1; then echo "Release $TAG 已存在"; break; fi
+            if gh release create "$TAG" --draft --title "資料 $DATE" \
+                 --notes "運輸署資料截止日 $DATE（自動建置：github.com/jinhaom/gocommute/actions）"; then
+              echo "已建立 Release $TAG"; break
+            fi
+            echo "建立 Release 失敗（第 $i 次），20 秒後重試…"; sleep 20
+          done
+          gh release view "$TAG" >/dev/null 2>&1 || { echo "✗ 無法建立 Release $TAG"; exit 1; }
+
+          # 資產冪等上傳（同日重跑會覆蓋）
+          gh release upload "$TAG" "$ZIP" version.json --clobber
+
+          # 明確轉正 —— 草稿對未認證訪問不可見，等於手機拿不到
+          gh release edit "$TAG" --draft=false
+          DRAFT="$(gh release view "$TAG" --json isDraft --jq .isDraft)"
+          [ "$DRAFT" = "false" ] || { echo "✗ Release 仍是草稿（isDraft=$DRAFT）"; exit 1; }
+
+          # 用「未認證」請求斷言手機真的下載得到（curl 不會讀 GH_TOKEN）
+          code="000"
+          for i in $(seq 1 12); do
+            code="$(curl -sSL -o /dev/null -w '%{http_code}' "$URL" || true)"
+            [ "$code" = "200" ] && break
+            echo "尚不可下載（HTTP $code），等 15 秒…"; sleep 15
+          done
+          [ "$code" = "200" ] || { echo "✗ 未認證下載失敗（HTTP $code）：$URL"; exit 1; }
+          echo "✓ 未認證下載 OK：$URL"
 
       - name: 把 version.json 提交回 main（供 app 便宜輪詢）
         if: steps.check.outputs.changed == 'true'
