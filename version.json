@@ -1,20 +1,20 @@
 {
  "schema": 1,
  "data_date": "2026-09-11",
- "built_at": "2026-09-13T09:14:23Z",
+ "built_at": "2026-09-13T14:53:00Z",
  "built_by": "gocommute-data pipeline (GitHub Actions)",
  "zip": {
   "name": "transit-data-2026-09-11.zip",
-  "bytes": 4235355,
-  "sha256": "cd644881e93cbc0d467bf065a5a73d73041882d8a2cb866f684c2ada5bf112d7",
+  "bytes": 4236699,
+  "sha256": "bb851913cfc12f7fc8b98b5c116abe8806ce02a6aa26aed72168eaed253a6800",
   "url": "https://github.com/jinhaom/gocommute-data/releases/download/data-2026-09-11/transit-data-2026-09-11.zip"
  },
- "manifest_sha256": "b549f85df6779eb48a7b96552d015fafe811f7e0df574403a7dedc7ad5902bec",
+ "manifest_sha256": "765b0d5ab8e9d9b617a3e2c9b3960fdc74409bdc49713074c2d1818e27ab5105",
  "files": [
   {
    "name": "transit_static.json",
-   "bytes": 6588163,
-   "sha256": "2a576afa8bdc91baea5d1c80b69641d8f4b38b4c22de002b8865f0e7a5d0d109"
+   "bytes": 6593408,
+   "sha256": "c48c61516d466ca223591fce81d98a3d70efda583c4f65339ddd38a071b2b4bd"
   },
   {
    "name": "transit_fares.jsonl",
@@ -34,12 +34,12 @@
   {
    "name": "operator_stop_map.json",
    "bytes": 2978507,
-   "sha256": "af420aa55b9c1a7d04f7f672251b6bdb170b2fa19a0824915e7bfaf045becf0a"
+   "sha256": "67733a3374649dce83a100dd44c26f1e654dac306b1d482fd3a6476958db96e5"
   },
   {
    "name": "manifest.json",
-   "bytes": 402,
-   "sha256": "b549f85df6779eb48a7b96552d015fafe811f7e0df574403a7dedc7ad5902bec"
+   "bytes": 852,
+   "sha256": "765b0d5ab8e9d9b617a3e2c9b3960fdc74409bdc49713074c2d1818e27ab5105"
   }
  ]
 }
