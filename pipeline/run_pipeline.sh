@@ -89,6 +89,8 @@ fares = sum(1 for _ in open(os.path.join(a, "transit_fares.jsonl"), encoding="ut
 print(f"    fares          = {fares:>7}  (期望 > 500000)")
 if fares <= 500000: bad.append("fares")
 
+m = json.load(open(os.path.join(a, "manifest.json"), encoding="utf-8"))
+
 # 港鐵站坐標：**警告但不中止**（OSM 掛掉不該讓線路資料也發不出去；缺了要在摘要裡看見）
 coords = c.get("mtr_stations_with_coords", 0)
 stations = c.get("mtr_stations", 0)
@@ -96,11 +98,12 @@ coords_ok = stations > 0 and coords >= stations
 print(f"    mtr_coords     = {coords:>7}  (期望 = {stations} 港鐵站全部有坐標)"
       f"  {'OK' if coords_ok else '⚠️ 有港鐵站沒有坐標（附近站點不會列出它們）'}")
 if not coords_ok:
+    # 講清楚是哪一種情況：本次用回退檔（manifest 有標），還是完全冇坐標
+    kind = "本次用回退坐標" if m.get("mtr_coords_fallback") else "本次冇任何港鐵站坐標"
     with open(summary_path, "a", encoding="utf-8") as f:
-        f.write(f"⚠️ 本次發佈的庫只有 {coords}/{stations} 個港鐵站有坐標"
-                f"（{'回退坐標' if os.path.exists(os.path.join(a, 'manifest.json')) else '無坐標'}）\n")
+        f.write(f"⚠️ 本次發佈的庫只有 {coords}/{stations} 個港鐵站有坐標（{kind}；"
+                f"來源 {m.get('mtr_coords_source') or '無'}）\n")
 
-m = json.load(open(os.path.join(a, "manifest.json"), encoding="utf-8"))
 print(f"    manifest: date={m.get('date')} 港鐵坐標來源={m.get('mtr_coords_source')}"
       f" 抓取於={m.get('mtr_coords_fetched_at')} 回退={m.get('mtr_coords_fallback')}")
 
