@@ -1,0 +1,120 @@
+name: update-data
+
+# 每天檢查一次運輸署的「資料截止日」（95 字節）：
+#   日期沒變 → 立刻結束（約 1 分鐘）
+#   日期變了 → 重跑整條管道 → 發佈新版本 Release + 更新 version.json
+on:
+  schedule:
+    - cron: '17 3 * * *'        # 每天 03:17 UTC（香港 11:17）
+  workflow_dispatch:
+    inputs:
+      force:
+        description: '強制重建（忽略版本比對）'
+        type: boolean
+        default: false
+
+# 公開倉庫 → 標準 runner 分鐘數不限；這裡只寫 GITHUB_TOKEN 需要的權限
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 檢查官方資料日期
+        id: check
+        run: |
+          set -euo pipefail
+          curl -fsS --retry 3 https://static.data.gov.hk/td/pt-headway-tc/DATA_LAST_UPDATED_DATE.csv -o /tmp/date.csv
+          DATE="$(tr -d '\r' < /tmp/date.csv | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1)"
+          CUR="$(python3 -c "import json;print(json.load(open('version.json'))['data_date'])" 2>/dev/null || echo none)"
+          echo "官方日期=$DATE  已發佈=$CUR"
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+          if [ "$DATE" = "$CUR" ] && [ "${{ github.event.inputs.force }}" != "true" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 無更新 → 結束
+        if: steps.check.outputs.changed == 'false'
+        run: echo "官方資料仍是 ${{ steps.check.outputs.date }}，不下載、不重建。" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 跑資料管道
+        if: steps.check.outputs.changed == 'true'
+        run: bash pipeline/run_pipeline.sh work
+
+      - name: 打包 + 產生 version.json
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          DATE="$(cat work/DATA_DATE)"
+          python3 - "$DATE" <<'PY'
+          import hashlib, json, os, sys, datetime
+          date = sys.argv[1]
+          assets, work = "work/assets", "work"
+          names = ["transit_static.json", "transit_fares.jsonl", "transit_headway.json",
+                   "transit_mtr_fares.tsv", "operator_stop_map.json", "manifest.json"]
+          files = []
+          for n in names:
+              p = os.path.join(assets, n)
+              b = open(p, "rb").read()
+              files.append({"name": n, "bytes": len(b), "sha256": hashlib.sha256(b).hexdigest()})
+          tag = f"data-{date}"
+          zname = f"transit-data-{date}.zip"
+          v = {
+              "schema": 1,
+              "data_date": date,
+              "built_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+              "built_by": "gocommute-data pipeline (GitHub Actions)",
+              "zip": {"name": zname, "url": f"https://github.com/jinhaom/gocommute-data/releases/download/{tag}/{zname}"},
+              "manifest_sha256": next(f["sha256"] for f in files if f["name"] == "manifest.json"),
+              "files": files,
+          }
+          json.dump(v, open("version.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+          print(json.dumps({"data_date": date, "files": len(files)}, ensure_ascii=False))
+          PY
+          # 打包（zip 內保持資產檔名在根層，app 解壓即可）
+          ( cd work/assets && zip -q -9 -r "../transit-data-$DATE.zip" . )
+          sha256sum "work/transit-data-$DATE.zip" | tee work/zip.sha256
+          ls -la work/transit-data-*.zip
+
+      - name: 發佈 Release（不可變、可回滾）
+        if: steps.check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          DATE="$(cat work/DATA_DATE)"
+          gh release create "data-$DATE" \
+            "work/transit-data-$DATE.zip" version.json \
+            --title "資料 $DATE" \
+            --notes "運輸署資料截止日 $DATE（自動建置：github.com/jinhaom/gocommute/actions）" \
+            || gh release upload "data-$DATE" "work/transit-data-$DATE.zip" version.json --clobber
+
+      - name: 把 version.json 提交回 main（供 app 便宜輪詢）
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name  "gocommute-data bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add version.json
+          git diff --staged --quiet && echo "version.json 無變化" || git commit -m "data: 資料更新至 $(cat work/DATA_DATE)"
+          git push
+
+      - name: 摘要
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          {
+            echo "### 已發佈資料 $(cat work/DATA_DATE)"
+            echo '```'
+            python3 -c "import json;v=json.load(open('version.json'));print(json.dumps(v,ensure_ascii=False,indent=1))"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
