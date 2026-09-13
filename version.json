@@ -1,13 +1,15 @@
 {
  "schema": 1,
  "data_date": "2026-09-11",
- "built_at": "2026-09-13T08:46:16Z",
+ "built_at": "2026-09-13T09:14:23Z",
  "built_by": "gocommute-data pipeline (GitHub Actions)",
  "zip": {
   "name": "transit-data-2026-09-11.zip",
+  "bytes": 4235355,
+  "sha256": "cd644881e93cbc0d467bf065a5a73d73041882d8a2cb866f684c2ada5bf112d7",
   "url": "https://github.com/jinhaom/gocommute-data/releases/download/data-2026-09-11/transit-data-2026-09-11.zip"
  },
- "manifest_sha256": "4b34a9b0628b1fa0067f3f781af2a2e4c41f4399a411153a611915108ca9010e",
+ "manifest_sha256": "b549f85df6779eb48a7b96552d015fafe811f7e0df574403a7dedc7ad5902bec",
  "files": [
   {
    "name": "transit_static.json",
@@ -32,12 +34,12 @@
   {
    "name": "operator_stop_map.json",
    "bytes": 2978507,
-   "sha256": "35448442797c8f729aeb18bc56c406c616eed2e3ecb24d712d61fd26fd28c3b1"
+   "sha256": "af420aa55b9c1a7d04f7f672251b6bdb170b2fa19a0824915e7bfaf045becf0a"
   },
   {
    "name": "manifest.json",
    "bytes": 402,
-   "sha256": "4b34a9b0628b1fa0067f3f781af2a2e4c41f4399a411153a611915108ca9010e"
+   "sha256": "b549f85df6779eb48a7b96552d015fafe811f7e0df574403a7dedc7ad5902bec"
   }
  ]
 }
