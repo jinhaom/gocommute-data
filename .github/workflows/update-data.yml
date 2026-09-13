@@ -49,7 +49,17 @@ jobs:
 
       - name: 跑資料管道
         if: steps.check.outputs.changed == 'true'
-        run: bash pipeline/run_pipeline.sh work
+        run: |
+          set -euo pipefail
+          bash pipeline/run_pipeline.sh work
+          # 管道要點（含港鐵站坐標來源 / 是否用回退坐標）寫進工作流摘要
+          { echo "### 資料管道要點"; echo '```'; cat work/SUMMARY.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          # 把本次成功的港鐵站坐標存回倉庫（當作下次 Overpass 掛掉時的回退；用回退時不動它）
+          if [ "$(python3 -c "import json;print(json.load(open('work/out/mtr_station_coords.json')).get('fallback_used',False))")" = "False" ]; then
+            cp work/out/mtr_station_coords.json pipeline/mtr_station_coords.json
+          else
+            echo "⚠️ 本次港鐵站坐標用的是回退檔，不覆蓋 pipeline/mtr_station_coords.json" >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: 打包 + 產生 version.json
         if: steps.check.outputs.changed == 'true'
@@ -141,7 +151,7 @@ jobs:
           set -euo pipefail
           git config user.name  "gocommute-data bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add version.json
+          git add version.json pipeline/mtr_station_coords.json
           git diff --staged --quiet && echo "version.json 無變化" || git commit -m "data: 資料更新至 $(cat work/DATA_DATE)"
           git push
 
@@ -150,6 +160,10 @@ jobs:
         run: |
           {
             echo "### 已發佈資料 $(cat work/DATA_DATE)"
+            echo '```'
+            cat work/SUMMARY.txt
+            python3 -c "import json;m=json.load(open('work/assets/manifest.json'));print('港鐵站坐標：%s/%s（%s）' % (m.get('mtr_stations_with_coords'), m.get('mtr_stations'), m.get('mtr_coords_source')))"
+            echo '```'
             echo '```'
             python3 -c "import json;v=json.load(open('version.json'));print(json.dumps(v,ensure_ascii=False,indent=1))"
             echo '```'

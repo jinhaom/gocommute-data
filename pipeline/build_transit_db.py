@@ -95,7 +95,35 @@ def _last_updated(args) -> str:
     return time.strftime("%Y-%m-%d")
 
 
-def build_mtr(mtr_dir: str):
+def load_mtr_coords(path: str | None) -> tuple[dict[str, dict], dict]:
+    """讀港鐵站坐標檔（`pipeline/fetch_mtr_coords.py` 的產物）。
+
+    回傳 `({站碼: {lat, lng, osm_type, osm_id, osm_name}}, 來源資訊)`。
+    檔頭資訊（來源/許可證/時間）會一併寫進 manifest —— OSM 是 ODbL，標注來源是義務。
+    """
+    if not path:
+        return {}, {}
+    if not os.path.isfile(path):
+        print(f"    ⚠️ 找不到港鐵站坐標檔：{path}（港鐵站將沒有坐標，附近站點功能對港鐵站不可用）")
+        return {}, {}
+    with open(path, encoding="utf-8") as f:
+        doc = json.load(f)
+    stations = doc.get("stations") or {}
+    meta = {
+        "source": doc.get("source", "OpenStreetMap"),
+        "source_url": doc.get("source_url", ""),
+        "license": doc.get("license", ""),
+        "attribution": doc.get("attribution", ""),
+        "fetched_at": doc.get("fetched_at", ""),
+        "osm_data_timestamp": doc.get("osm_data_timestamp", ""),
+        "matched": doc.get("matched", len(stations)),
+        "total": doc.get("total", 0),
+        "fallback_used": bool(doc.get("fallback_used")),
+    }
+    return stations, meta
+
+
+def build_mtr(mtr_dir: str, coords: dict[str, dict] | None = None):
     """港铁（重铁）线路 / 车站 / 车费。
 
     数据源：`opendata.mtr.com.hk` 的四张 CSV（官方开放数据）：
@@ -106,10 +134,13 @@ def build_mtr(mtr_dir: str):
       - `light_rail_fares.csv`：轻铁票价（4,624 行）——**本期不进库**（轻铁站不在重铁站表里，
         需要另一套站表；先如实不做，不做半截）。
 
-    注意：**官方这四张表都不含车站坐标**（已逐表确认）。所以港铁站在库里没有经纬度，
-    附近站点功能对港铁站要另想办法（这条写进文档，不拿假坐标糊过去）。
+    坐标：**官方这四张表都不含车站坐标**（已逐表确认）。坐標由 `pipeline/fetch_mtr_coords.py`
+    從 OpenStreetMap（Overpass API）補齊，並用 `--mtr-coords` 傳進來（實測 97/97 命中）。
+    沒拿到坐標的站 `lat`/`lng` 留空 —— 不塞假坐標（那會污染附近站點的距离排序）。
     """
     import csv
+
+    coords = coords or {}
 
     # 线码 → 官方线路名（CSV 里没有线路名，这是稳定公开事实）
     names = {
@@ -147,6 +178,12 @@ def build_mtr(mtr_dir: str):
         lc = r["Line Code"].strip()
         if lc not in st["lines"]:
             st["lines"].append(lc)
+        # 坐標（OSM）：同一站碼可能多行（多線），只寫一次；沒坐標就整份留空
+        c = coords.get(code)
+        if c and "lat" not in st and c.get("lat") is not None:
+            st["lat"] = round(float(c["lat"]), 6)
+            st["lng"] = round(float(c["lng"]), 6)
+            st["coord_source"] = "osm"
 
     # 方向站序（按 Sequence 排序；DT/UT 与支线各自成序）
     for r in raw:
@@ -198,7 +235,11 @@ def build_mtr(mtr_dir: str):
         "oct_child": "OCT_CHD_FARE", "oct_elderly": "",
     }, src="ST_FROM_ID", dst="ST_TO_ID")
 
-    return lines, stations, rows_out, hr, ael
+    with_coords = sum(1 for s in stations.values() if "lat" in s)
+    no_coords = sorted(s["name_tc"] for s in stations.values() if "lat" not in s)
+    if no_coords:
+        print(f"    ⚠️ {len(no_coords)} 個港鐵站沒有坐標（附近站點不會列出它們）：{'、'.join(no_coords)}")
+    return lines, stations, rows_out, hr, ael, with_coords
 
 
 def main() -> int:
@@ -212,6 +253,8 @@ def main() -> int:
     ap.add_argument("--operator-map", default=None,
                     help="operator_stop_map.json.gz 路径；提供时会一并写入资产目录")
     ap.add_argument("--date", default=None, help="库版本日期（YYYY-MM-DD），默认读官方日期文件")
+    ap.add_argument("--mtr-coords", default=None,
+                    help="港鐵站坐標檔（pipeline/fetch_mtr_coords.py 的產物，OSM/ODbL）")
     args = ap.parse_args()
 
     t0 = time.time()
@@ -351,7 +394,10 @@ def main() -> int:
         simple_routes[rid] = {**r, "bounds": {b: len(v) for b, v in rs.items()}}
 
     # ---- 港铁（独立命名空间：站码 SHW / 线码 ISL，绝不与运输署 id 混用）----
-    mtr_lines, mtr_stations, mtr_fares, mtr_hr_rows, mtr_ael_rows = build_mtr(args.mtr_dir)
+    # 坐標來自 OSM（官方 CSV 沒有），見 pipeline/fetch_mtr_coords.py
+    mtr_coords, mtr_coords_meta = load_mtr_coords(args.mtr_coords)
+    mtr_lines, mtr_stations, mtr_fares, mtr_hr_rows, mtr_ael_rows, mtr_with_coords = \
+        build_mtr(args.mtr_dir, mtr_coords)
     # 车费按行写文件（与 TD 车费同样思路：别整份进内存）
     mtr_fares_path = os.path.join(args.out, "transit_mtr_fares.tsv")
     with open(mtr_fares_path, "w", encoding="utf-8") as f:
@@ -371,6 +417,8 @@ def main() -> int:
             "route_stops": sum(len(v) for b in route_stop.values() for v in b.values()),
             "mtr_lines": len(mtr_lines), "mtr_stations": len(mtr_stations),
             "mtr_fares": len(mtr_fares),
+            # 有坐標的港鐵站數（來源 OSM；0 表示這一份沒有 OSM 坐標）
+            "mtr_stations_with_coords": mtr_with_coords,
         },
     }
     p1, raw1, gz1 = dump("transit_static.json.gz", static)
@@ -419,6 +467,15 @@ def main() -> int:
             "mtr_lines": len(mtr_lines),
             "mtr_stations": len(mtr_stations),
             "mtr_fares": len(mtr_fares),
+            # 港鐵站坐標（OSM，ODbL —— 標注來源是義務，App 設定頁「關於」也有標注）
+            "mtr_stations_with_coords": mtr_with_coords,
+            "mtr_coords_source": mtr_coords_meta.get("source", ""),
+            "mtr_coords_source_url": mtr_coords_meta.get("source_url", ""),
+            "mtr_coords_license": mtr_coords_meta.get("license", ""),
+            "mtr_coords_attribution": mtr_coords_meta.get("attribution", ""),
+            "mtr_coords_fetched_at": mtr_coords_meta.get("fetched_at", ""),
+            "mtr_coords_osm_timestamp": mtr_coords_meta.get("osm_data_timestamp", ""),
+            "mtr_coords_fallback": mtr_coords_meta.get("fallback_used", False),
         }, ensure_ascii=False, indent=1)
         with open(os.path.join(args.assets_dir, "manifest.json"), "w", encoding="utf-8") as f:
             f.write(manifest)
@@ -434,6 +491,8 @@ def main() -> int:
           f"站序记录 {static['counts']['route_stops']} | "
           f"分段收费路线 {len(fares)} 条（{sum(len(v) for v in fares.values())} 条记录）")
     print(f"站名按营运商分开存的：{dict(sorted(op_name_count.items()))}")
+    print(f"港铁站坐标（OSM/ODbL）：{mtr_with_coords}/{len(mtr_stations)}"
+          + (f"（缺 {len(mtr_stations) - mtr_with_coords} 站）" if mtr_with_coords < len(mtr_stations) else ""))
     for p, raw, gz in ((p1, raw1, gz1), (p2, raw2, gz2), (p3, raw3, gz3)):
         print(f"  {os.path.basename(p):26s} 原始 {raw/1048576:6.2f} MB → gzip {gz/1048576:5.2f} MB")
     print(f"耗时 {time.time()-t0:.1f}s")

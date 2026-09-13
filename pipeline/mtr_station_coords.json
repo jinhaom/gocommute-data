@@ -1,0 +1,985 @@
+{
+ "schema": 1,
+ "source": "OpenStreetMap（Overpass API）",
+ "source_url": "https://overpass.kumi.systems/api/interpreter",
+ "license": "ODbL 1.0 — © OpenStreetMap contributors",
+ "attribution": "港鐵車站坐標：© OpenStreetMap 貢獻者（ODbL）",
+ "fetched_at": "2026-09-13T14:27:27Z",
+ "osm_element_timestamp": "",
+ "query_bbox": "22.15,113.83,22.57,114.45",
+ "matched": 97,
+ "total": 97,
+ "unmatched": [],
+ "stations": {
+  "ADM": {
+   "name_tc": "金鐘",
+   "name_en": "Admiralty",
+   "lat": 22.278628,
+   "lng": 114.165524,
+   "osm_type": "way",
+   "osm_id": 248960443,
+   "osm_name": "金鐘 Admiralty",
+   "match": "exact"
+  },
+  "AIR": {
+   "name_tc": "機場",
+   "name_en": "Airport",
+   "lat": 22.315921,
+   "lng": 113.936551,
+   "osm_type": "way",
+   "osm_id": 28069671,
+   "osm_name": "機場 Airport",
+   "match": "exact"
+  },
+  "AUS": {
+   "name_tc": "柯士甸",
+   "name_en": "Austin",
+   "lat": 22.304236,
+   "lng": 114.166601,
+   "osm_type": "node",
+   "osm_id": 6610744414,
+   "osm_name": "柯士甸 Austin",
+   "match": "exact"
+  },
+  "AWE": {
+   "name_tc": "博覽館",
+   "name_en": "AsiaWorld-Expo",
+   "lat": 22.321988,
+   "lng": 113.942221,
+   "osm_type": "node",
+   "osm_id": 738427429,
+   "osm_name": "博覽館 AsiaWorld-Expo",
+   "match": "exact"
+  },
+  "CAB": {
+   "name_tc": "銅鑼灣",
+   "name_en": "Causeway Bay",
+   "lat": 22.279389,
+   "lng": 114.18374,
+   "osm_type": "way",
+   "osm_id": 248971549,
+   "osm_name": "銅鑼灣 Causeway Bay",
+   "match": "exact"
+  },
+  "CEN": {
+   "name_tc": "中環",
+   "name_en": "Central",
+   "lat": 22.281908,
+   "lng": 114.159198,
+   "osm_type": "way",
+   "osm_id": 248794172,
+   "osm_name": "中環 Central",
+   "match": "exact"
+  },
+  "CHH": {
+   "name_tc": "彩虹",
+   "name_en": "Choi Hung",
+   "lat": 22.334993,
+   "lng": 114.208818,
+   "osm_type": "way",
+   "osm_id": 263472307,
+   "osm_name": "彩虹 Choi Hung",
+   "match": "exact"
+  },
+  "CHW": {
+   "name_tc": "柴灣",
+   "name_en": "Chai Wan",
+   "lat": 22.264453,
+   "lng": 114.237044,
+   "osm_type": "node",
+   "osm_id": 5444489721,
+   "osm_name": "柴灣 Chai Wan",
+   "match": "exact"
+  },
+  "CIO": {
+   "name_tc": "第一城",
+   "name_en": "City One",
+   "lat": 22.382882,
+   "lng": 114.20355,
+   "osm_type": "way",
+   "osm_id": 235438725,
+   "osm_name": "第一城 City One",
+   "match": "exact"
+  },
+  "CKT": {
+   "name_tc": "車公廟",
+   "name_en": "Che Kung Temple",
+   "lat": 22.374767,
+   "lng": 114.186176,
+   "osm_type": "way",
+   "osm_id": 137340368,
+   "osm_name": "車公廟 Che Kung Temple",
+   "match": "exact"
+  },
+  "CSW": {
+   "name_tc": "長沙灣",
+   "name_en": "Cheung Sha Wan",
+   "lat": 22.335507,
+   "lng": 114.15616,
+   "osm_type": "node",
+   "osm_id": 2544686378,
+   "osm_name": "長沙灣 Cheung Sha Wan",
+   "match": "exact"
+  },
+  "DIH": {
+   "name_tc": "鑽石山",
+   "name_en": "Diamond Hill",
+   "lat": 22.3397,
+   "lng": 114.201442,
+   "osm_type": "relation",
+   "osm_id": 10711433,
+   "osm_name": "鑽石山 Diamond Hill",
+   "match": "exact"
+  },
+  "DIS": {
+   "name_tc": "迪士尼",
+   "name_en": "Disneyland Resort",
+   "lat": 22.315392,
+   "lng": 114.045141,
+   "osm_type": "way",
+   "osm_id": 112659018,
+   "osm_name": "迪士尼 Disneyland Resort",
+   "match": "exact"
+  },
+  "ETS": {
+   "name_tc": "尖東",
+   "name_en": "East Tsim Sha Tsui",
+   "lat": 22.295561,
+   "lng": 114.175072,
+   "osm_type": "node",
+   "osm_id": 2546436295,
+   "osm_name": "尖東 East Tsim Sha Tsui",
+   "match": "exact"
+  },
+  "EXC": {
+   "name_tc": "會展",
+   "name_en": "Exhibition Centre",
+   "lat": 22.281613,
+   "lng": 114.17569,
+   "osm_type": "node",
+   "osm_id": 9739308598,
+   "osm_name": "會展 Exhibition Centre",
+   "match": "exact"
+  },
+  "FAN": {
+   "name_tc": "粉嶺",
+   "name_en": "Fanling",
+   "lat": 22.491989,
+   "lng": 114.13881,
+   "osm_type": "way",
+   "osm_id": 1491017712,
+   "osm_name": "粉嶺 Fanling",
+   "match": "exact"
+  },
+  "FOH": {
+   "name_tc": "炮台山",
+   "name_en": "Fortress Hill",
+   "lat": 22.287563,
+   "lng": 114.193315,
+   "osm_type": "node",
+   "osm_id": 253288735,
+   "osm_name": "炮台山 Fortress Hill",
+   "match": "exact"
+  },
+  "FOT": {
+   "name_tc": "火炭",
+   "name_en": "Fo Tan",
+   "lat": 22.395287,
+   "lng": 114.198108,
+   "osm_type": "way",
+   "osm_id": 188606344,
+   "osm_name": "火炭 Fo Tan",
+   "match": "exact"
+  },
+  "HAH": {
+   "name_tc": "坑口",
+   "name_en": "Hang Hau",
+   "lat": 22.315571,
+   "lng": 114.26444,
+   "osm_type": "node",
+   "osm_id": 6606594903,
+   "osm_name": "坑口 Hang Hau",
+   "match": "exact"
+  },
+  "HEO": {
+   "name_tc": "恆安",
+   "name_en": "Heng On",
+   "lat": 22.417506,
+   "lng": 114.225753,
+   "osm_type": "way",
+   "osm_id": 41888281,
+   "osm_name": "恆安 Heng On",
+   "match": "exact"
+  },
+  "HFC": {
+   "name_tc": "杏花邨",
+   "name_en": "Heng Fa Chuen",
+   "lat": 22.27664,
+   "lng": 114.239752,
+   "osm_type": "way",
+   "osm_id": 205358842,
+   "osm_name": "杏花邨 Heng Fa Chuen",
+   "match": "exact"
+  },
+  "HIK": {
+   "name_tc": "顯徑",
+   "name_en": "Hin Keng",
+   "lat": 22.363959,
+   "lng": 114.170813,
+   "osm_type": "way",
+   "osm_id": 227327486,
+   "osm_name": "顯徑 Hin Keng",
+   "match": "exact"
+  },
+  "HKU": {
+   "name_tc": "香港大學",
+   "name_en": "HKU",
+   "lat": 22.283976,
+   "lng": 114.135507,
+   "osm_type": "node",
+   "osm_id": 6135479158,
+   "osm_name": "香港大學 HKU",
+   "match": "exact"
+  },
+  "HOK": {
+   "name_tc": "香港",
+   "name_en": "Hong Kong",
+   "lat": 22.284717,
+   "lng": 114.158072,
+   "osm_type": "relation",
+   "osm_id": 16793911,
+   "osm_name": "香港 Hong Kong",
+   "match": "exact"
+  },
+  "HOM": {
+   "name_tc": "何文田",
+   "name_en": "Ho Man Tin",
+   "lat": 22.309515,
+   "lng": 114.182624,
+   "osm_type": "way",
+   "osm_id": 448419653,
+   "osm_name": "何文田 Ho Man Tin",
+   "match": "exact"
+  },
+  "HUH": {
+   "name_tc": "紅磡",
+   "name_en": "Hung Hom",
+   "lat": 22.302901,
+   "lng": 114.182248,
+   "osm_type": "node",
+   "osm_id": 7900305742,
+   "osm_name": "紅磡 Hung Hom",
+   "match": "exact"
+  },
+  "JOR": {
+   "name_tc": "佐敦",
+   "name_en": "Jordan",
+   "lat": 22.304665,
+   "lng": 114.171746,
+   "osm_type": "way",
+   "osm_id": 428509146,
+   "osm_name": "佐敦 Jordan",
+   "match": "exact"
+  },
+  "KAT": {
+   "name_tc": "啟德",
+   "name_en": "Kai Tak",
+   "lat": 22.330499,
+   "lng": 114.199367,
+   "osm_type": "way",
+   "osm_id": 772168466,
+   "osm_name": "啟德 Kai Tak",
+   "match": "exact"
+  },
+  "KET": {
+   "name_tc": "堅尼地城",
+   "name_en": "Kennedy Town",
+   "lat": 22.281496,
+   "lng": 114.128468,
+   "osm_type": "way",
+   "osm_id": 248775630,
+   "osm_name": "堅尼地城 Kennedy Town",
+   "match": "exact"
+  },
+  "KOB": {
+   "name_tc": "九龍灣",
+   "name_en": "Kowloon Bay",
+   "lat": 22.323467,
+   "lng": 114.214088,
+   "osm_type": "way",
+   "osm_id": 1138078351,
+   "osm_name": "九龍灣 Kowloon Bay",
+   "match": "exact"
+  },
+  "KOT": {
+   "name_tc": "九龍塘",
+   "name_en": "Kowloon Tong",
+   "lat": 22.336874,
+   "lng": 114.176737,
+   "osm_type": "way",
+   "osm_id": 1360643613,
+   "osm_name": "九龍塘 Kowloon Tong",
+   "match": "exact"
+  },
+  "KOW": {
+   "name_tc": "九龍",
+   "name_en": "Kowloon",
+   "lat": 22.304925,
+   "lng": 114.1616,
+   "osm_type": "node",
+   "osm_id": 6586975227,
+   "osm_name": "九龍 Kowloon",
+   "match": "exact"
+  },
+  "KSR": {
+   "name_tc": "錦上路",
+   "name_en": "Kam Sheung Road",
+   "lat": 22.434801,
+   "lng": 114.063415,
+   "osm_type": "way",
+   "osm_id": 192243898,
+   "osm_name": "錦上路 Kam Sheung Road",
+   "match": "exact"
+  },
+  "KWF": {
+   "name_tc": "葵芳",
+   "name_en": "Kwai Fong",
+   "lat": 22.356844,
+   "lng": 114.127805,
+   "osm_type": "way",
+   "osm_id": 142662153,
+   "osm_name": "葵芳 Kwai Fong",
+   "match": "exact"
+  },
+  "KWH": {
+   "name_tc": "葵興",
+   "name_en": "Kwai Hing",
+   "lat": 22.36317,
+   "lng": 114.131199,
+   "osm_type": "way",
+   "osm_id": 142662159,
+   "osm_name": "葵興 Kwai Hing",
+   "match": "exact"
+  },
+  "KWT": {
+   "name_tc": "觀塘",
+   "name_en": "Kwun Tong",
+   "lat": 22.312127,
+   "lng": 114.226511,
+   "osm_type": "way",
+   "osm_id": 199004441,
+   "osm_name": "觀塘 Kwun Tong",
+   "match": "exact"
+  },
+  "LAK": {
+   "name_tc": "茘景",
+   "name_en": "Lai King",
+   "lat": 22.348322,
+   "lng": 114.126059,
+   "osm_type": "way",
+   "osm_id": 111706734,
+   "osm_name": "荔景 Lai King",
+   "match": "exact"
+  },
+  "LAT": {
+   "name_tc": "藍田",
+   "name_en": "Lam Tin",
+   "lat": 22.306886,
+   "lng": 114.233079,
+   "osm_type": "way",
+   "osm_id": 88008343,
+   "osm_name": "藍田 Lam Tin",
+   "match": "exact"
+  },
+  "LCK": {
+   "name_tc": "茘枝角",
+   "name_en": "Lai Chi Kok",
+   "lat": 22.337396,
+   "lng": 114.148414,
+   "osm_type": "node",
+   "osm_id": 12596366142,
+   "osm_name": "荔枝角 Lai Chi Kok",
+   "match": "exact"
+  },
+  "LET": {
+   "name_tc": "利東",
+   "name_en": "Lei Tung",
+   "lat": 22.242195,
+   "lng": 114.155828,
+   "osm_type": "way",
+   "osm_id": 454133893,
+   "osm_name": "利東 Lei Tung",
+   "match": "exact"
+  },
+  "LHP": {
+   "name_tc": "康城",
+   "name_en": "LOHAS Park",
+   "lat": 22.295559,
+   "lng": 114.268752,
+   "osm_type": "node",
+   "osm_id": 361384199,
+   "osm_name": "康城 LOHAS Park",
+   "match": "exact"
+  },
+  "LMC": {
+   "name_tc": "落馬洲",
+   "name_en": "Lok Ma Chau",
+   "lat": 22.514457,
+   "lng": 114.065682,
+   "osm_type": "way",
+   "osm_id": 1165593256,
+   "osm_name": "落馬洲 Lok Ma Chau",
+   "match": "exact"
+  },
+  "LOF": {
+   "name_tc": "樂富",
+   "name_en": "Lok Fu",
+   "lat": 22.338023,
+   "lng": 114.187233,
+   "osm_type": "node",
+   "osm_id": 13415026713,
+   "osm_name": "樂富 Lok Fu",
+   "match": "exact"
+  },
+  "LOP": {
+   "name_tc": "朗屏",
+   "name_en": "Long Ping",
+   "lat": 22.447672,
+   "lng": 114.025449,
+   "osm_type": "way",
+   "osm_id": 230683401,
+   "osm_name": "朗屏 Long Ping",
+   "match": "exact"
+  },
+  "LOW": {
+   "name_tc": "羅湖",
+   "name_en": "Lo Wu",
+   "lat": 22.528177,
+   "lng": 114.113339,
+   "osm_type": "node",
+   "osm_id": 11093802917,
+   "osm_name": "羅湖 Lo Wu",
+   "match": "exact"
+  },
+  "MEF": {
+   "name_tc": "美孚",
+   "name_en": "Mei Foo",
+   "lat": 22.33889,
+   "lng": 114.136555,
+   "osm_type": "node",
+   "osm_id": 13050511450,
+   "osm_name": "美孚 Mei Foo",
+   "match": "exact"
+  },
+  "MKK": {
+   "name_tc": "旺角東",
+   "name_en": "Mong Kok East",
+   "lat": 22.322191,
+   "lng": 114.172709,
+   "osm_type": "way",
+   "osm_id": 37517422,
+   "osm_name": "旺角東 Mong Kok East",
+   "match": "exact"
+  },
+  "MOK": {
+   "name_tc": "旺角",
+   "name_en": "Mong Kok",
+   "lat": 22.319308,
+   "lng": 114.169374,
+   "osm_type": "way",
+   "osm_id": 112427969,
+   "osm_name": "旺角 Mong Kok",
+   "match": "exact"
+  },
+  "MOS": {
+   "name_tc": "馬鞍山",
+   "name_en": "Ma On Shan",
+   "lat": 22.42482,
+   "lng": 114.231614,
+   "osm_type": "way",
+   "osm_id": 192579385,
+   "osm_name": "馬鞍山 Ma On Shan",
+   "match": "exact"
+  },
+  "NAC": {
+   "name_tc": "南昌",
+   "name_en": "Nam Cheong",
+   "lat": 22.326428,
+   "lng": 114.153751,
+   "osm_type": "way",
+   "osm_id": 251610571,
+   "osm_name": "南昌 Nam Cheong",
+   "match": "exact"
+  },
+  "NOP": {
+   "name_tc": "北角",
+   "name_en": "North Point",
+   "lat": 22.290909,
+   "lng": 114.200753,
+   "osm_type": "node",
+   "osm_id": 2566102950,
+   "osm_name": "北角 North Point",
+   "match": "exact"
+  },
+  "NTK": {
+   "name_tc": "牛頭角",
+   "name_en": "Ngau Tau Kok",
+   "lat": 22.315449,
+   "lng": 114.21896,
+   "osm_type": "way",
+   "osm_id": 39950659,
+   "osm_name": "牛頭角 Ngau Tau Kok",
+   "match": "exact"
+  },
+  "OCP": {
+   "name_tc": "海洋公園",
+   "name_en": "Ocean Park",
+   "lat": 22.248582,
+   "lng": 114.174368,
+   "osm_type": "way",
+   "osm_id": 391176774,
+   "osm_name": "海洋公園 Ocean Park",
+   "match": "exact"
+  },
+  "OLY": {
+   "name_tc": "奧運",
+   "name_en": "Olympic",
+   "lat": 22.317697,
+   "lng": 114.160281,
+   "osm_type": "way",
+   "osm_id": 41415576,
+   "osm_name": "奧運 Olympic",
+   "match": "exact"
+  },
+  "POA": {
+   "name_tc": "寶琳",
+   "name_en": "Po Lam",
+   "lat": 22.322491,
+   "lng": 114.257903,
+   "osm_type": "way",
+   "osm_id": 302740041,
+   "osm_name": "寶琳 Po Lam",
+   "match": "exact"
+  },
+  "PRE": {
+   "name_tc": "太子",
+   "name_en": "Prince Edward",
+   "lat": 22.324455,
+   "lng": 114.168302,
+   "osm_type": "node",
+   "osm_id": 6610142561,
+   "osm_name": "太子 Prince Edward",
+   "match": "exact"
+  },
+  "QUB": {
+   "name_tc": "鰂魚涌",
+   "name_en": "Quarry Bay",
+   "lat": 22.288165,
+   "lng": 114.208992,
+   "osm_type": "node",
+   "osm_id": 6610705648,
+   "osm_name": "鰂魚涌 Quarry Bay",
+   "match": "exact"
+  },
+  "SHM": {
+   "name_tc": "石門",
+   "name_en": "Shek Mun",
+   "lat": 22.387656,
+   "lng": 114.208319,
+   "osm_type": "way",
+   "osm_id": 188183631,
+   "osm_name": "石門 Shek Mun",
+   "match": "exact"
+  },
+  "SHS": {
+   "name_tc": "上水",
+   "name_en": "Sheung Shui",
+   "lat": 22.501162,
+   "lng": 114.128033,
+   "osm_type": "node",
+   "osm_id": 5441594278,
+   "osm_name": "上水 Sheung Shui",
+   "match": "exact"
+  },
+  "SHT": {
+   "name_tc": "沙田",
+   "name_en": "Sha Tin",
+   "lat": 22.382999,
+   "lng": 114.187739,
+   "osm_type": "way",
+   "osm_id": 223848687,
+   "osm_name": "沙田 Sha Tin",
+   "match": "exact"
+  },
+  "SHW": {
+   "name_tc": "上環",
+   "name_en": "Sheung Wan",
+   "lat": 22.28684,
+   "lng": 114.152161,
+   "osm_type": "way",
+   "osm_id": 248789530,
+   "osm_name": "上環 Sheung Wan",
+   "match": "exact"
+  },
+  "SIH": {
+   "name_tc": "兆康",
+   "name_en": "Siu Hong",
+   "lat": 22.411863,
+   "lng": 113.978824,
+   "osm_type": "way",
+   "osm_id": 41178206,
+   "osm_name": "兆康 Siu Hong",
+   "match": "exact"
+  },
+  "SKM": {
+   "name_tc": "石硤尾",
+   "name_en": "Shek Kip Mei",
+   "lat": 22.332022,
+   "lng": 114.168852,
+   "osm_type": "way",
+   "osm_id": 816466449,
+   "osm_name": "石硤尾 Shek Kip Mei",
+   "match": "exact"
+  },
+  "SKW": {
+   "name_tc": "筲箕灣",
+   "name_en": "Shau Kei Wan",
+   "lat": 22.279173,
+   "lng": 114.228842,
+   "osm_type": "node",
+   "osm_id": 2566265627,
+   "osm_name": "筲箕灣 Shau Kei Wan",
+   "match": "exact"
+  },
+  "SOH": {
+   "name_tc": "海怡半島",
+   "name_en": "South Horizons",
+   "lat": 22.242842,
+   "lng": 114.148754,
+   "osm_type": "way",
+   "osm_id": 454158470,
+   "osm_name": "海怡半島 South Horizons",
+   "match": "exact"
+  },
+  "SSP": {
+   "name_tc": "深水埗",
+   "name_en": "Sham Shui Po",
+   "lat": 22.330726,
+   "lng": 114.162337,
+   "osm_type": "way",
+   "osm_id": 389315494,
+   "osm_name": "深水埗 Sham Shui Po",
+   "match": "exact"
+  },
+  "STW": {
+   "name_tc": "沙田圍",
+   "name_en": "Sha Tin Wai",
+   "lat": 22.377027,
+   "lng": 114.194987,
+   "osm_type": "way",
+   "osm_id": 187405865,
+   "osm_name": "沙田圍 Sha Tin Wai",
+   "match": "exact"
+  },
+  "SUN": {
+   "name_tc": "欣澳",
+   "name_en": "Sunny Bay",
+   "lat": 22.331984,
+   "lng": 114.028915,
+   "osm_type": "node",
+   "osm_id": 6612064022,
+   "osm_name": "欣澳 Sunny Bay",
+   "match": "exact"
+  },
+  "SUW": {
+   "name_tc": "宋皇臺",
+   "name_en": "Sung Wong Toi",
+   "lat": 22.325896,
+   "lng": 114.191327,
+   "osm_type": "way",
+   "osm_id": 970662761,
+   "osm_name": "宋皇臺 Sung Wong Toi",
+   "match": "exact"
+  },
+  "SWH": {
+   "name_tc": "西灣河",
+   "name_en": "Sai Wan Ho",
+   "lat": 22.28163,
+   "lng": 114.222289,
+   "osm_type": "node",
+   "osm_id": 2566130974,
+   "osm_name": "西灣河 Sai Wan Ho",
+   "match": "exact"
+  },
+  "SYP": {
+   "name_tc": "西營盤",
+   "name_en": "Sai Ying Pun",
+   "lat": 22.285435,
+   "lng": 114.142642,
+   "osm_type": "node",
+   "osm_id": 3791000798,
+   "osm_name": "西營盤 Sai Ying Pun",
+   "match": "exact"
+  },
+  "TAK": {
+   "name_tc": "太古",
+   "name_en": "Tai Koo",
+   "lat": 22.284637,
+   "lng": 114.216322,
+   "osm_type": "node",
+   "osm_id": 2566130977,
+   "osm_name": "太古 Tai Koo",
+   "match": "exact"
+  },
+  "TAP": {
+   "name_tc": "大埔墟",
+   "name_en": "Tai Po Market",
+   "lat": 22.444651,
+   "lng": 114.170635,
+   "osm_type": "node",
+   "osm_id": 4338478841,
+   "osm_name": "大埔墟 Tai Po Market",
+   "match": "exact"
+  },
+  "TAW": {
+   "name_tc": "大圍",
+   "name_en": "Tai Wai",
+   "lat": 22.37305,
+   "lng": 114.178448,
+   "osm_type": "way",
+   "osm_id": 37518439,
+   "osm_name": "大圍 Tai Wai",
+   "match": "exact"
+  },
+  "TIH": {
+   "name_tc": "天后",
+   "name_en": "Tin Hau",
+   "lat": 22.282276,
+   "lng": 114.191704,
+   "osm_type": "way",
+   "osm_id": 248976077,
+   "osm_name": "天后 Tin Hau",
+   "match": "exact"
+  },
+  "TIK": {
+   "name_tc": "調景嶺",
+   "name_en": "Tiu Keng Leng",
+   "lat": 22.304075,
+   "lng": 114.25237,
+   "osm_type": "node",
+   "osm_id": 1295654865,
+   "osm_name": "調景嶺 Tiu Keng Leng",
+   "match": "exact"
+  },
+  "TIS": {
+   "name_tc": "天水圍",
+   "name_en": "Tin Shui Wai",
+   "lat": 22.447703,
+   "lng": 114.004258,
+   "osm_type": "way",
+   "osm_id": 66467188,
+   "osm_name": "天水圍 Tin Shui Wai",
+   "match": "exact"
+  },
+  "TKO": {
+   "name_tc": "將軍澳",
+   "name_en": "Tseung Kwan O",
+   "lat": 22.307362,
+   "lng": 114.25992,
+   "osm_type": "way",
+   "osm_id": 158574718,
+   "osm_name": "將軍澳 Tseung Kwan O",
+   "match": "exact"
+  },
+  "TKW": {
+   "name_tc": "土瓜灣",
+   "name_en": "To Kwa Wan",
+   "lat": 22.316625,
+   "lng": 114.187541,
+   "osm_type": "way",
+   "osm_id": 1052378304,
+   "osm_name": "土瓜灣 To Kwa Wan",
+   "match": "exact"
+  },
+  "TSH": {
+   "name_tc": "大水坑",
+   "name_en": "Tai Shui Hang",
+   "lat": 22.408598,
+   "lng": 114.222803,
+   "osm_type": "way",
+   "osm_id": 41856916,
+   "osm_name": "大水坑 Tai Shui Hang",
+   "match": "exact"
+  },
+  "TST": {
+   "name_tc": "尖沙咀",
+   "name_en": "Tsim Sha Tsui",
+   "lat": 22.29726,
+   "lng": 114.172403,
+   "osm_type": "way",
+   "osm_id": 724107013,
+   "osm_name": "尖沙咀 Tsim Sha Tsui",
+   "match": "exact"
+  },
+  "TSW": {
+   "name_tc": "荃灣",
+   "name_en": "Tsuen Wan",
+   "lat": 22.373737,
+   "lng": 114.11764,
+   "osm_type": "relation",
+   "osm_id": 17573610,
+   "osm_name": "荃灣 Tsuen Wan",
+   "match": "exact"
+  },
+  "TSY": {
+   "name_tc": "青衣",
+   "name_en": "Tsing Yi",
+   "lat": 22.358497,
+   "lng": 114.106753,
+   "osm_type": "node",
+   "osm_id": 2703686815,
+   "osm_name": "青衣 Tsing Yi",
+   "match": "exact"
+  },
+  "TUC": {
+   "name_tc": "東涌",
+   "name_en": "Tung Chung",
+   "lat": 22.289245,
+   "lng": 113.941374,
+   "osm_type": "node",
+   "osm_id": 6610342222,
+   "osm_name": "東涌 Tung Chung",
+   "match": "exact"
+  },
+  "TUM": {
+   "name_tc": "屯門",
+   "name_en": "Tuen Mun",
+   "lat": 22.394947,
+   "lng": 113.973112,
+   "osm_type": "way",
+   "osm_id": 40430283,
+   "osm_name": "屯門 Tuen Mun",
+   "match": "exact"
+  },
+  "TWH": {
+   "name_tc": "大窩口",
+   "name_en": "Tai Wo Hau",
+   "lat": 22.370817,
+   "lng": 114.125006,
+   "osm_type": "way",
+   "osm_id": 300687213,
+   "osm_name": "大窩口 Tai Wo Hau",
+   "match": "exact"
+  },
+  "TWO": {
+   "name_tc": "太和",
+   "name_en": "Tai Wo",
+   "lat": 22.451068,
+   "lng": 114.161055,
+   "osm_type": "way",
+   "osm_id": 222614312,
+   "osm_name": "太和 Tai Wo",
+   "match": "exact"
+  },
+  "TWW": {
+   "name_tc": "荃灣西",
+   "name_en": "Tsuen Wan West",
+   "lat": 22.368349,
+   "lng": 114.109928,
+   "osm_type": "way",
+   "osm_id": 40840437,
+   "osm_name": "荃灣西 Tsuen Wan West",
+   "match": "exact"
+  },
+  "UNI": {
+   "name_tc": "大學",
+   "name_en": "University",
+   "lat": 22.413569,
+   "lng": 114.210103,
+   "osm_type": "node",
+   "osm_id": 5098496689,
+   "osm_name": "大學 University",
+   "match": "exact"
+  },
+  "WAC": {
+   "name_tc": "灣仔",
+   "name_en": "Wan Chai",
+   "lat": 22.277584,
+   "lng": 114.17286,
+   "osm_type": "node",
+   "osm_id": 5444483688,
+   "osm_name": "灣仔 Wan Chai",
+   "match": "exact"
+  },
+  "WCH": {
+   "name_tc": "黃竹坑",
+   "name_en": "Wong Chuk Hang",
+   "lat": 22.247864,
+   "lng": 114.167512,
+   "osm_type": "node",
+   "osm_id": 9824199724,
+   "osm_name": "黃竹坑 Wong Chuk Hang",
+   "match": "exact"
+  },
+  "WHA": {
+   "name_tc": "黃埔",
+   "name_en": "Whampoa",
+   "lat": 22.304951,
+   "lng": 114.189536,
+   "osm_type": "way",
+   "osm_id": 448985634,
+   "osm_name": "黃埔 Whampoa",
+   "match": "exact"
+  },
+  "WKS": {
+   "name_tc": "烏溪沙",
+   "name_en": "Wu Kai Sha",
+   "lat": 22.42913,
+   "lng": 114.243898,
+   "osm_type": "way",
+   "osm_id": 41888442,
+   "osm_name": "烏溪沙 Wu Kai Sha",
+   "match": "exact"
+  },
+  "WTS": {
+   "name_tc": "黃大仙",
+   "name_en": "Wong Tai Sin",
+   "lat": 22.341572,
+   "lng": 114.194009,
+   "osm_type": "way",
+   "osm_id": 264462805,
+   "osm_name": "黃大仙 Wong Tai Sin",
+   "match": "exact"
+  },
+  "YAT": {
+   "name_tc": "油塘",
+   "name_en": "Yau Tong",
+   "lat": 22.297788,
+   "lng": 114.237159,
+   "osm_type": "node",
+   "osm_id": 6610130700,
+   "osm_name": "油塘 Yau Tong",
+   "match": "exact"
+  },
+  "YMT": {
+   "name_tc": "油麻地",
+   "name_en": "Yau Ma Tei",
+   "lat": 22.312804,
+   "lng": 114.170581,
+   "osm_type": "way",
+   "osm_id": 112557169,
+   "osm_name": "油麻地 Yau Ma Tei",
+   "match": "exact"
+  },
+  "YUL": {
+   "name_tc": "元朗",
+   "name_en": "Yuen Long",
+   "lat": 22.446223,
+   "lng": 114.035286,
+   "osm_type": "way",
+   "osm_id": 41707454,
+   "osm_name": "元朗 Yuen Long",
+   "match": "exact"
+  }
+ }
+}
