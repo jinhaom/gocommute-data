@@ -1,30 +1,30 @@
 {
  "schema": 1,
- "data_date": "2026-11-02",
- "built_at": "2026-11-02T11:20:37Z",
+ "data_date": "2026-11-10",
+ "built_at": "2026-11-10T11:22:01Z",
  "built_by": "gocommute-data pipeline (GitHub Actions)",
  "zip": {
-  "name": "transit-data-2026-11-02.zip",
-  "bytes": 4229827,
-  "sha256": "2af3eca5e2386b42897ef5232363cb041d1a7154a549bd03c9728df4a2b84399",
-  "url": "https://github.com/jinhaom/gocommute-data/releases/download/data-2026-11-02/transit-data-2026-11-02.zip"
+  "name": "transit-data-2026-11-10.zip",
+  "bytes": 4255185,
+  "sha256": "f73573680672a385b34fbbf0921b169b41225bec0ba03dd491165090ef854a2b",
+  "url": "https://github.com/jinhaom/gocommute-data/releases/download/data-2026-11-10/transit-data-2026-11-10.zip"
  },
- "manifest_sha256": "63dbfd280fa57a117c79e95e9520cb3958715704ad4efec94686b2e28ca55896",
+ "manifest_sha256": "45096ff06521ed6f6ed24a4706443b8703f1b3f9389c180e75c56d33dd53bf31",
  "files": [
   {
    "name": "transit_static.json",
-   "bytes": 6603835,
-   "sha256": "8ab2760862b4be31beafb8e1c762d49af9f24571ae4f5602ba190edf615c1439"
+   "bytes": 6621411,
+   "sha256": "b1411eb96aa954f8e8516f4424d633d741e9bef3c3ea2dc4061843ef42a43dd3"
   },
   {
    "name": "transit_fares.jsonl",
-   "bytes": 18641563,
-   "sha256": "8047b3ab854935acb5b411b5aed2a58ddef4b1567abc0b9b7d035a6e73c07f1f"
+   "bytes": 18763853,
+   "sha256": "f0ad74486b059c28c6230785baf102298859f7e81c33324c0fcd678986a715ff"
   },
   {
    "name": "transit_headway.json",
-   "bytes": 2178052,
-   "sha256": "e1789412af210e5cc97fe577026a4d9d1f677326f41d9eae71bfade033c7b0d8"
+   "bytes": 2171445,
+   "sha256": "25ae1866b64dda730fedc000f1b4ce30c7c23bb7831e1969d51fd11f24a4ae00"
   },
   {
    "name": "transit_mtr_fares.tsv",
@@ -33,13 +33,13 @@
   },
   {
    "name": "operator_stop_map.json",
-   "bytes": 2935092,
-   "sha256": "7c9f4c0763862fbec0a1f9601f2e9274262bed4bcc6a4887f5a83cbebfb3fa58"
+   "bytes": 2992827,
+   "sha256": "9ac4cba7df7c2ad4d9935d432ac1694323a6b82d9a577625c8d0de9facbcb471"
   },
   {
    "name": "manifest.json",
-   "bytes": 858,
-   "sha256": "63dbfd280fa57a117c79e95e9520cb3958715704ad4efec94686b2e28ca55896"
+   "bytes": 852,
+   "sha256": "45096ff06521ed6f6ed24a4706443b8703f1b3f9389c180e75c56d33dd53bf31"
   }
  ]
 }
